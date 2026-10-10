@@ -1,0 +1,578 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Duffl Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a component datasheet. Heavy rule above each numbered clause, a spec table beside the name, work shown as figures and document cards. */
+:root {
+  --bg: #FFFFFF;
+  --surface: #F7F7F7;
+  --ink: #2B2B2B;
+  --muted: #5E5E5E;
+  --line: #D9D9D9;
+  --accent: #333333;
+  --halo: rgba(51, 51, 51, 0.15);
+
+  --font-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.1875rem;
+  --step-2: 1.5rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 var(--step-0) / 1.6 var(--font-body);
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+  padding-block: 0 3rem;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--accent); text-underline-offset: 0.2em; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.page {
+  max-width: 72rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* Top bar */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+  font: 400 var(--step--1) / 1.2 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+.led {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--halo);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.top nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.top nav a {
+  color: var(--muted);
+  padding-block: 0.25rem;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+}
+.top nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 2rem 3rem;
+  align-items: end;
+}
+.hero-main { min-width: 0; }
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font: 400 var(--step--1) / 1.4 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0.5rem 0 1.25rem;
+  font: 800 clamp(3.75rem, 15vw, 9.5rem) / 0.86 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+.lede { max-width: 38rem; margin: 0; font-size: var(--step-1); }
+
+.spec, .order { margin: 0; border-top: 2px solid var(--ink); }
+.spec > div, .order > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  padding-block: 0.65rem;
+  border-bottom: 1px solid var(--line);
+}
+dt {
+  color: var(--muted);
+  font: 400 var(--step--1) / 1.3 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+dd { min-width: 0; margin: 0; font: 500 0.9375rem / 1.4 var(--font-mono); text-align: right; }
+
+/* Tagline band under the intro */
+.tagline {
+  padding-block: 1.1rem;
+  border-block: 1px solid var(--line);
+}
+.tagline p {
+  margin: 0;
+  font: 700 clamp(1.1rem, 2.6vw, 1.5rem) / 1.3 var(--font-display);
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+/* Numbered clauses */
+.clause {
+  display: grid;
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: 1rem 3rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--ink);
+}
+.clause h2 {
+  margin: 0;
+  font: 700 var(--step-1) / 1.2 var(--font-display);
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+.no {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--accent);
+  font: 500 var(--step--1) / 1 var(--font-mono);
+  letter-spacing: 0.08em;
+}
+.body { min-width: 0; display: flex; flex-direction: column; gap: 1.5rem; }
+.body p { max-width: 40rem; margin: 0; }
+.label {
+  margin: 0 0 0.6rem;
+  color: var(--muted);
+  font: 400 var(--step--1) / 1.3 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.features { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.5rem; max-width: 40rem; }
+.features li { position: relative; padding-left: 1.6rem; }
+.features li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font: 500 1rem / 1.6 var(--font-mono);
+}
+
+/* About me: heading with the portrait underneath it in the left column. Photo is 200px tall, width follows its proportions */
+.side { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+.portrait {
+  display: block;
+  height: 200px;
+  width: auto;
+  max-width: 100%;
+  border: 1px solid var(--line);
+}
+
+/* Personal journey */
+.prose { display: flex; flex-direction: column; gap: 1rem; }
+.sub { margin: 0; font: 700 var(--step-1) / 1.3 var(--font-display); text-wrap: balance; }
+
+/* Work cards */
+.feature {
+  min-width: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.photo { min-width: 0; border-right: 1px solid var(--line); }
+.photo img { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.feature figcaption, .doc { display: flex; flex-direction: column; gap: 0.75rem; }
+.feature figcaption { justify-content: center; padding: 1.5rem; }
+.doc { padding: 1.5rem; border: 1px solid var(--line); background: var(--surface); }
+.fig-no {
+  color: var(--accent);
+  font: 500 var(--step--1) / 1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.fig-title { margin: 0; font: 700 var(--step-2) / 1.2 var(--font-display); text-wrap: balance; }
+.feature p, .doc p { max-width: 36rem; margin: 0; color: var(--muted); }
+.file {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin-top: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.file:hover { background: var(--ink); color: var(--bg); }
+.file-meta {
+  font: 400 var(--step--1) / 1.4 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* A stack of file links in a section body: equal width, tight spacing, not stretched across the whole column */
+.files { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+.files .file { width: min(100%, 38rem); margin-top: 0; }
+
+/* Tables */
+.table-wrap { max-width: 100%; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th {
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--ink);
+  color: var(--muted);
+  font: 500 var(--step--1) / 1.3 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+}
+td { padding: 0.75rem 1rem 0.75rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.mono { color: var(--muted); font: 400 0.875rem / 1.5 var(--font-mono); white-space: nowrap; }
+
+/* Contact */
+.order dd { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0.6rem; overflow-wrap: anywhere; }
+#email-text { user-select: all; }
+button {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font: 500 0.75rem / 1.4 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+button:hover { background: var(--ink); color: var(--bg); }
+
+/* Footer */
+.foot { display: flex; flex-direction: column; gap: 0.6rem; }
+.foot table { max-width: 32rem; }
+.foot td:first-child { white-space: nowrap; }
+
+/* Sticky menu: stays at the top of the window while scrolling */
+:root { --header-h: 4rem; } /* the script replaces this with the menu's real height */
+.top {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  padding-top: 0.9rem;
+  background: var(--bg);
+}
+.top.is-stuck { box-shadow: 0 10px 18px -16px rgba(0, 0, 0, 0.4); }
+.hero, .clause { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
+
+@media (max-width: 560px) {
+  .top { padding-block: 0.65rem; gap: 0.2rem 1rem; }
+  .top nav { gap: 0.1rem 1rem; }
+}
+
+/* Subtle motion. Everything here is skipped when the visitor has reduced motion turned on. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Intro entrance, one element after another */
+  .hero .eyebrow, .hero h1, .hero .lede, .hero .spec { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .hero h1 { animation-delay: 0.08s; }
+  .hero .lede { animation-delay: 0.16s; }
+  .hero .spec { animation-delay: 0.24s; }
+  .tagline p { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.32s both; }
+
+  /* Sections fade up as they scroll into view (the script adds .reveal only to sections below the fold) */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .reveal.is-visible { opacity: 1; transform: none; }
+
+  /* Hover and focus details */
+  .top { transition: box-shadow 0.25s ease; }
+  .top nav a { transition: color 0.2s ease, border-color 0.2s ease; }
+  .file { transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+  .file:hover { transform: translateY(-2px); }
+  .feature, .doc { transition: border-color 0.25s ease, box-shadow 0.25s ease; }
+  .feature:hover, .doc:hover { border-color: var(--muted); box-shadow: 0 14px 28px -22px rgba(0, 0, 0, 0.45); }
+  .photo { overflow: hidden; }
+  .photo img { transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .feature:hover .photo img { transform: scale(1.04); }
+  .portrait { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .portrait:hover { transform: translateY(-3px); box-shadow: 0 14px 24px -18px rgba(0, 0, 0, 0.5); }
+  tbody tr { transition: background-color 0.2s ease; }
+  tbody tr:hover { background: var(--surface); }
+  button { transition: background-color 0.2s ease, color 0.2s ease; }
+}
+
+@media (max-width: 760px) {
+  .hero, .clause, .feature { grid-template-columns: minmax(0, 1fr); }
+  .clause { gap: 0.9rem; }
+  .photo { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .led { animation: none; }
+}
+</style>
+
+<div class="page" id="top">
+  <header class="top">
+    <a class="mark" href="#top"><span class="led" aria-hidden="true"></span>HOME</a>
+    <nav aria-label="Sections">
+      <a href="#about">About Me</a>
+      <a href="#journey">Journey</a>
+      <a href="#coursework">Coursework</a>
+      <a href="#projects">Projects</a>
+      <a href="#proposal">Proposal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-main">
+      <p class="eyebrow">Computer Engineering student · Mapúa University</p>
+      <h1>Dffl</h1>
+      <p class="lede">Hi, welcome to my Portfolio. </p>
+    </div>
+    <dl class="spec" aria-label="Summary">
+      <div><dt>Name</dt><dd>Dave Aron D. Cabaron</dd></div>
+      <div><dt>Program</dt><dd>Computer Engineering</dd></div>
+      <div><dt>Institution</dt><dd>Mapúa University</dd></div>
+      <div><dt>Region</dt><dd>Philippines, Metro Manila</dd></div>
+    </dl>
+  </section>
+
+  <!-- Tagline: to change it, edit the text inside the <p> below -->
+  <section class="tagline" aria-label="Tagline">
+    <p>My Passion, My Choice, My Future.</p>
+  </section>
+
+  <section class="clause" id="about">
+    <div class="side">
+      <h2><span class="no">1</span>About Me</h2>
+      <img class="portrait" src="portrait.jpg" width="143" height="250" alt="Studio portrait of a smiling young man with glasses, wearing a dark suit, blue shirt and striped tie against a gray backdrop.">
+    </div>
+    <div class="body">
+      <p>I'm Dave Aron D. Cabaron, currently a college freshman studying in Mapua University. In my personal time, I like listening to music, going to the gym, taking long walks, and playing rhythm games (osu!). My most notable achievements, personally, are building and troubleshooting computer systems and mechanical keyboards.</p>
+      <div>
+        <h3 class="label">Specialization</h3>
+        <ul class="specialization">
+          <li>Computer Hardware</li>
+          <li>Mechanical Keyboards</li>
+          <li>Rhythm Games (osu!)</li>
+      </div>
+    </div>
+  </section>
+
+  <section class="clause" id="journey">
+    <h2><span class="no">2</span>Personal Journey</h2>
+    <div class="body">
+      <div class="prose">
+        <h3 class="sub">My Experience in College</h3>
+        <p>In the past 3 months I have been a freshman here in Mapua University, so far my experience was fun yet tiring and difficult. With the amount of tasks and quizzes, all of it did not come easy. Its also been difficult adapting to a new environment, but eventually I was able to pick myself up and slowly adjust to my environment.</p>
+        <p>Honestly, I underestimated Mapua University's implementation of the "quarterm" system, it really took a toll on me. I was always finding myself in situations where I could not have time for myself. There were always instances where I was torn in between doing schoolwork and doing the things I like. If I were to be asked what the most difficult experience for me was, my answer would be adapting to the school, its environment and its system. Although I am now better at handling myself in college, I still face struggles from time to time but I hope to be able to overcome these struggles eventually.</p>
+        <p>Overall, I still enjoy this program and I don't regret my decision going into this program. I am someone who is really passionate with tech, specifically computer hardware and modern tech. The university has also helped in shaping me to become someone who is better with managing his time and priorities, and the courses have taught me a lot in various aspects. I look forward to my journey in this institution and excited to see what's to come in the future.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="clause" id="coursework">
+    <h2><span class="no">3</span>Courseworks</h2>
+    <div class="body">
+      <div>
+        <h3 class="label">Courses</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Code</th><th scope="col">Course</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">CPE101-4</td><td>Computer Engineering as a Discipline</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="files">
+        <a class="file" href="cpe-infographic.pdf" target="_blank" rel="noopener">
+          <span>CPE Infographic</span>
+          <span class="file-meta">PDF · 2.8 MB</span>
+        </a>
+        <a class="file" href="cpe-reverse-engineering-keyboard.pdf" target="_blank" rel="noopener">
+          <span>CPE - Reverse Engineering of a Mechanical Keyboard</span>
+          <span class="file-meta">PDF · 91 KB</span>
+        </a>
+         <a class="file" href="cpe cw3.mp4" target="_blank" rel="noopener">
+          <span>CPE - Emerging Technologies</span>
+          <span class="file-meta">MP4 · 15 MB</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="clause" id="projects">
+    <h2><span class="no">4</span>Projects</h2>
+    <div class="body">
+      <figure class="feature">
+        <div class="photo">
+          <img src="capstone-team.jpg" width="1536" height="1024" alt="A group of students in a classroom holding printed copies of their capstone paper, with a presentation slide on the screen behind them.">
+        </div>
+        <figcaption>
+          <span class="fig-no">Fig. 1</span>
+          <h3 class="fig-title">Capstone Proposal (Organic Mosquito Repellent)</h3>
+          <p>A capstone project from Senior High. This capstone was approved on April 13, 2026 and it provides an organic, eco-friendly solution for mosquito repellents.</p>
+          <a class="file" href="capstone-chapter-1-5.pdf" target="_blank" rel="noopener">
+            <span>CAPSTONE CHAPTER 1-5</span>
+            <span class="file-meta">PDF · 12.6 MB</span>
+          </a>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="clause" id="proposal">
+    <h2><span class="no">5</span>Project Proposal</h2>
+    <div class="body">
+      <article class="doc">
+        <h3 class="fig-title">Project Proposal - "IoT Management: A Framework for Responsible Artificial Intelligence Water Consumption"</h3>
+        <p>A project proposal, proposed on October 10, 2026, that provides a framework to reduce AI water consumption.</p>
+        <a class="file" href="project-concept-paper.pdf" target="_blank" rel="noopener">
+          <span>Project Concept Paper - Group 5</span>
+          <span class="file-meta">PDF · 195 KB</span>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="clause" id="contact">
+    <h2><span class="no">6</span>Contact Information</h2>
+    <div class="body">
+      <p>Get in touch with me for communication purposes.</p>
+      <dl class="order">
+        <div>
+          <dt>Email</dt>
+          <dd><span id="email-text">davecabaron6@gmail.com</span><button type="button" id="copy-email" aria-live="polite">Copy</button></dd>
+        </div>
+        <div><dt>Contact number</dt><dd>+639082990395</dd></div>
+      </dl>
+    </div>
+  </section>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-email');
+  var el = document.getElementById('email-text');
+  if (!btn || !el) return;
+  function reset() { setTimeout(function () { btn.textContent = 'Copy'; }, 1800); }
+  function selectText() {
+    try {
+      var r = document.createRange();
+      r.selectNodeContents(el);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+    } catch (e) {}
+    btn.textContent = 'Selected';
+    reset();
+  }
+  btn.addEventListener('click', function () {
+    try {
+      navigator.clipboard.writeText(el.textContent.trim()).then(function () {
+        btn.textContent = 'Copied';
+        reset();
+      }, selectText);
+    } catch (e) {
+      selectText();
+    }
+  });
+})();
+
+/* Menu links: scroll to the section ourselves, so they still work where the browser or a preview ignores the default jump */
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var links = document.querySelectorAll('a[href^="#"]');
+  Array.prototype.forEach.call(links, function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      if (id === 'top') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+        return;
+      }
+      var target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      try { history.replaceState(null, '', '#' + id); } catch (err) {}
+    });
+  });
+})();
+
+/* Sticky menu and scroll effects */
+(function () {
+  var root = document.documentElement;
+  var header = document.querySelector('.top');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Keep the section jump offset equal to the menu's real height (it grows when the links wrap on a phone)
+  function measure() {
+    if (header) root.style.setProperty('--header-h', header.offsetHeight + 'px');
+  }
+  measure();
+  window.addEventListener('resize', measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+  // Soft shadow under the menu once the page has scrolled
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      if (header) header.classList.toggle('is-stuck', window.scrollY > 8);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Fade sections in as they come into view. Sections already on screen at load are never hidden,
+  // and nothing is hidden at all with reduced motion or without IntersectionObserver.
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.clause'));
+  var viewport = window.innerHeight || root.clientHeight;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+  sections.forEach(function (el) {
+    if (el.getBoundingClientRect().top < viewport * 0.9) return;
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+  window.addEventListener('beforeprint', function () {
+    sections.forEach(function (el) { el.classList.add('is-visible'); });
+  });
+})();
+</script>
+
+</body></html>
